@@ -34,7 +34,6 @@
     }
     .screen.active { display: flex; }
 
-    /* MENÚ */
     #menu { overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .menu-header {
       background: var(--panel);
@@ -55,13 +54,15 @@
       padding: 16px 20px;
       font-size: 13px;
       color: #ccddee;
-      line-height: 1.5;
+      line-height: 1.55;
     }
     .como h2 {
       color: var(--acento);
       font-size: 14px;
       margin-bottom: 8px;
     }
+    .como ol { padding-left: 18px; }
+    .como li { margin-bottom: 6px; }
     .btn {
       display: block;
       width: calc(100% - 40px);
@@ -76,11 +77,9 @@
     .btn-acento { background: var(--acento); color: var(--texto); }
     .btn-panel { background: var(--panel); color: var(--blanco); }
     .btn-verde { background: var(--verde); color: #fff; }
-    .btn-rojo { background: var(--rojo); color: #fff; }
     .btn-gris { background: #334466; color: #fff; }
     .btn-sm { font-size: 13px; padding: 10px; }
 
-    /* JUEGO */
     .juego-header {
       background: var(--panel);
       padding: 8px 12px;
@@ -132,13 +131,12 @@
       border: 2px solid var(--acento);
       padding: 4px 2px;
       text-align: center;
-      cursor: default;
+      cursor: pointer;
       aspect-ratio: 3/4;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
     .ficha.descartada {
       opacity: 0.35;
@@ -193,17 +191,11 @@
       color: #fff;
       font-size: 13px;
       margin-bottom: 8px;
-      appearance: none;
     }
     .btn-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-    }
-    .btn-row-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
     }
 
     #log {
@@ -225,7 +217,6 @@
     #log .pista:last-child { border-bottom: none; margin-bottom: 0; }
     #log strong { color: var(--acento); }
 
-    /* POPUP / RESULTADO */
     #popup {
       display: none;
       position: fixed;
@@ -240,21 +231,35 @@
     .popup-box {
       background: var(--panel);
       border-radius: 14px;
-      padding: 22px 18px;
-      width: min(92vw, 360px);
+      padding: 18px 14px;
+      width: min(94vw, 380px);
+      max-height: 85vh;
+      overflow-y: auto;
       text-align: center;
     }
     .popup-box h3 {
       color: var(--acento);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       font-size: 16px;
     }
-    .popup-box p {
-      font-size: 14px;
-      color: #dde;
-      margin-bottom: 14px;
-      line-height: 1.4;
+    #lista-adiv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
     }
+    #lista-adiv button {
+      padding: 10px 6px;
+      border: none;
+      border-radius: 8px;
+      background: #1e3a5c;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #lista-adiv button:active { opacity: 0.8; }
+
     #resultado {
       justify-content: center;
       align-items: center;
@@ -263,29 +268,30 @@
       gap: 10px;
     }
     #res-titulo { font-size: 22px; font-weight: bold; }
-    #res-sub { font-size: 14px; color: var(--gris); line-height: 1.5; }
+    #res-sub { font-size: 14px; color: var(--gris); line-height: 1.5; white-space: pre-line; }
   </style>
 </head>
 <body>
 
-<!-- MENÚ -->
 <div id="menu" class="screen active">
   <div class="menu-header">
     <h1>🕵️ Rastro Digital</h1>
-    <p>Investiga fuentes abiertas y descubre el objetivo secreto.<br>Pistas reales, señuelos y un solo intento.</p>
+    <p>Investiga fuentes abiertas y descubre el objetivo secreto.</p>
   </div>
   <div class="como">
-    <h2>Cómo jugar</h2>
-    <p>1. Hay 10 sospechosos. Uno es el objetivo secreto.<br>
-       2. Elige categoría y detalle, pulsa Investigar.<br>
-       3. Tienes 7 investigaciones.<br>
-       4. Cuando sepas quién es, pulsa Adivinar (1 intento).<br>
-       5. Puedes descartar fichas tocando su nombre (solo ayuda visual).</p>
+    <h2>Cómo jugar (paso a paso)</h2>
+    <ol>
+      <li>El juego elige en secreto a 1 de los 10 sospechosos.</li>
+      <li>Elige una <b>Categoría</b> y un <b>Detalle</b> (ej. Ubicación → Ciudad).</li>
+      <li>Pulsa <b>Investigar</b>. Aparece una pista (a veces incompleta o ambigua).</li>
+      <li>Tienes <b>7 investigaciones</b>. Cruza varias pistas; una sola no suele bastar.</li>
+      <li>Toca fichas para atenuarlas si crees que no son (solo ayuda visual).</li>
+      <li>Cuando lo sepas, pulsa <b>Adivinar</b> y elige un nombre. <b>Solo 1 intento</b>.</li>
+    </ol>
   </div>
   <button class="btn btn-acento" onclick="nuevaPartida()">▶ INVESTIGAR</button>
 </div>
 
-<!-- JUEGO -->
 <div id="juego" class="screen">
   <div class="juego-header">
     <div class="juego-top">
@@ -312,7 +318,6 @@
   </div>
 </div>
 
-<!-- RESULTADO -->
 <div id="resultado" class="screen">
   <div id="res-emoji" style="font-size:64px"></div>
   <div id="res-titulo"></div>
@@ -321,15 +326,12 @@
   <button class="btn btn-gris" onclick="irA('menu')">🏠 Menú</button>
 </div>
 
-<!-- POPUP ADIVINAR -->
 <div id="popup">
   <div class="popup-box">
     <h3>¿Quién es el objetivo?</h3>
-    <select id="sel-adiv" style="margin-bottom:12px"></select>
-    <div class="btn-row">
-      <button class="btn btn-verde btn-sm" onclick="confirmarAdivinar()">Confirmar</button>
-      <button class="btn btn-gris btn-sm" onclick="cerrarPopup()">Cancelar</button>
-    </div>
+    <p style="font-size:12px;color:#aabbcc;margin-bottom:10px">Toca un nombre (1 intento)</p>
+    <div id="lista-adiv"></div>
+    <button class="btn btn-gris btn-sm" style="width:100%;margin:0" onclick="cerrarPopup()">Cancelar</button>
   </div>
 </div>
 
@@ -360,7 +362,6 @@ var objetivo = null;
 var accionesRestantes = 7;
 var partidaActiva = false;
 var descartados = {};
-var historial = [];
 
 function irA(id) {
   var screens = document.querySelectorAll(".screen");
@@ -369,7 +370,7 @@ function irA(id) {
 }
 
 function avatarHTML(s) {
-  var nombreArchivo = s.n.split(" ")[0] + ".png";
+  var nombreArchivo = s.n.split(" ")[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "") + ".png";
   return '<img class="avatar" src="' + nombreArchivo + '" alt="' + s.n + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'"/>' +
          '<div class="iniciales" style="display:none">' + s.ini + '</div>';
 }
@@ -419,7 +420,6 @@ function nuevaPartida() {
   accionesRestantes = 7;
   partidaActiva = true;
   descartados = {};
-  historial = [];
   document.getElementById("log").innerHTML = "";
   document.getElementById("lbl-acciones").textContent = "Investigaciones: 7";
   document.getElementById("lbl-estado").textContent = "Elige una fuente y investiga";
@@ -433,67 +433,85 @@ function obtenerPista(cat, det) {
 
   if (cat === "Redes sociales") {
     if (det === "Instagram") {
-      if (o.n === "Carlos Ruiz") return "Sin cuenta clara de Instagram.";
-      return "Cuenta encontrada: " + o.user + ". Publicaciones relacionadas con su actividad habitual.";
+      if (o.n === "Carlos Ruiz") return "No se encuentra una cuenta de Instagram clara.";
+      if (o.ciudad === "Zaragoza") return "Fotos de montaña y aire libre. Ubicación frecuente: Aragón.";
+      if (o.ciudad === "Valencia") return "Fotos de costa y vida mediterránea.";
+      if (o.ciudad === "Barcelona") return "Contenido urbano y profesional en Cataluña.";
+      if (o.ciudad === "Madrid") return "Publicaciones habituales desde Madrid.";
+      if (o.ciudad === "Sevilla") return "Contenido de deporte y vida en Andalucía.";
+      return "Cuenta con actividad moderada. Poco concluyente.";
     }
     if (det === "X/Twitter") {
-      if (o.n === "Laura Vega") return "Poca actividad; algún mensaje sobre el Pirineo.";
-      if (o.n === "Marta Soto") return "Actividad baja en X/Twitter.";
-      return "Perfil activo orientado a: " + o.aficion + " / " + o.trabajo + ".";
+      if (o.n === "Carlos Ruiz") return "Perfil técnico: programación y algo de deporte.";
+      if (o.aficion.indexOf("montaña") >= 0 || o.aficion.indexOf("Escalada") >= 0)
+        return "Algunos mensajes sobre montaña / aire libre.";
+      if (o.trabajo === "Periodista") return "Hilos de actualidad y medios.";
+      if (o.trabajo === "Investigadora") return "Contenido de ciencia y divulgación.";
+      return "Actividad baja o genérica. Poco útil por sí sola.";
     }
     if (det === "LinkedIn") {
-      return "Perfil profesional: " + o.trabajo + " · " + o.ciudad + ".";
+      return "Perfil profesional: " + o.trabajo + ". Zona aproximada: " + o.ciudad + ".";
     }
     if (det === "GitHub") {
-      if (o.n === "Carlos Ruiz") return "Perfil activo con proyectos en Python y JavaScript.";
-      return "Sin resultados relevantes en GitHub.";
+      if (o.n === "Carlos Ruiz") return "Perfil con repositorios de código (Python/JS).";
+      return "Sin actividad relevante en GitHub.";
     }
   }
 
   if (cat === "Identidad") {
-    if (det === "Correo") return "Correo encontrado en fuentes abiertas: " + o.correo;
+    if (det === "Correo") {
+      var dominio = o.correo.split("@")[1];
+      var inicial = o.correo.charAt(0);
+      return "Correo parcialmente visible: " + inicial + ".*****@" + dominio;
+    }
     if (det === "Teléfono") return "No hay un teléfono público claro.";
-    if (det === "Usuario") return "Usuario asociado: " + o.user;
+    if (det === "Usuario") {
+      var u = o.user.replace("@", "");
+      return "Usuario parcial detectado: @" + u.substring(0, 4) + "****";
+    }
   }
 
   if (cat === "Ubicación") {
-    if (det === "Ciudad") return "Varias pistas apuntan a: " + o.ciudad + ".";
+    if (det === "Ciudad") return "Indicios geográficos apuntan a: " + o.ciudad + ".";
     if (det === "Viajes") {
-      if (o.n === "Laura Vega") return "Indicios de desplazamientos al Pirineo / montaña.";
-      if (o.n === "Marta Soto") return "Indicios de costa mediterránea.";
-      if (o.n === "Ana Beltrán") return "Varios destinos nacionales e internacionales.";
-      if (o.n === "Javier Molina") return "Costa y actividad náutica.";
-      return "Sin indicios claros de viajes recientes.";
+      if (o.n === "Laura Vega" || o.n === "Diego Navarro") return "Desplazamientos hacia zonas de montaña / Pirineo.";
+      if (o.n === "Marta Soto" || o.n === "Javier Molina") return "Indicios de costa mediterránea.";
+      if (o.n === "Ana Beltrán") return "Varios destinos, nacionales e internacionales.";
+      return "Sin patrón claro de viajes recientes.";
     }
   }
 
   if (cat === "Actividad") {
-    if (det === "Trabajo") return "Actividad profesional detectada: " + o.trabajo + ".";
-    if (det === "Aficiones") return "Aficiones recurrentes: " + o.aficion + ".";
+    if (det === "Trabajo") return "Actividad profesional relacionada con: " + o.trabajo + ".";
+    if (det === "Aficiones") {
+      if (o.aficion.indexOf("montaña") >= 0 || o.aficion.indexOf("Escalada") >= 0)
+        return "Aficiones de exterior: montaña, rutas o escalada.";
+      if (o.aficion.indexOf("Foto") >= 0) return "Interés claro por la fotografía.";
+      return "Aficiones detectadas: " + o.aficion + ".";
+    }
     if (det === "Noticias") {
-      if (o.n === "Ana Beltrán") return "Artículos firmados en medios digitales.";
-      if (o.n === "Sofía Ramos") return "Apariciones en charlas de divulgación científica.";
+      if (o.n === "Ana Beltrán") return "Apariciones en medios digitales firmando piezas.";
+      if (o.n === "Sofía Ramos") return "Menciones en eventos de divulgación científica.";
       return "Sin noticias relevantes.";
     }
   }
 
   if (cat === "Archivos / web") {
     if (det === "Web personal") {
-      if (o.n === "Laura Vega") return "Portfolio de fotografía de naturaleza.";
-      if (o.n === "Carlos Ruiz") return "Blog técnico personal.";
-      if (o.n === "Pablo Ortega") return "Web de estudio de diseño.";
-      if (o.n === "Sofía Ramos") return "Página de proyectos de investigación.";
+      if (o.n === "Laura Vega") return "Portfolio visual orientado a naturaleza.";
+      if (o.n === "Carlos Ruiz") return "Blog o web con contenido técnico.";
+      if (o.n === "Pablo Ortega") return "Web de estilo creativo / estudio.";
+      if (o.n === "Sofía Ramos") return "Página con proyectos de investigación.";
       return "No se encuentra web personal clara.";
     }
-    if (det === "Foto pública") return "Se encuentran imágenes asociadas al perfil público de esta persona.";
+    if (det === "Foto pública") return "Hay imágenes públicas asociadas, pero no identifican por sí solas.";
   }
 
   if (cat === "Relaciones") {
     if (det === "Menciones") {
-      if (o.n === "Laura Vega") return "Etiquetada con perfiles de Zaragoza / montaña.";
-      if (o.n === "Diego Navarro") return "Mencionado en grupos de escalada de Aragón.";
-      if (o.n === "Marta Soto") return "Aparece junto a perfiles de Valencia.";
-      if (o.n === "Ana Beltrán") return "Menciona colegas de prensa en Barcelona.";
+      if (o.n === "Laura Vega" || o.n === "Diego Navarro") return "Menciones junto a perfiles de Aragón / montaña.";
+      if (o.n === "Marta Soto" || o.n === "Javier Molina") return "Aparece cerca de perfiles de Valencia.";
+      if (o.n === "Ana Beltrán") return "Menciones del entorno de prensa en Barcelona.";
       return "Menciones genéricas o poco concluyentes.";
     }
   }
@@ -516,17 +534,15 @@ function investigar() {
 
   var log = document.getElementById("log");
   log.innerHTML = '<div class="pista"><strong>' + cat + " → " + det + "</strong><br>" + pista + "</div>" + log.innerHTML;
-  historial.push({ cat: cat, det: det, pista: pista });
 }
 
 function abrirAdivinar() {
   if (!partidaActiva) return;
-  var sel = document.getElementById("sel-adiv");
   var html = "";
   for (var i = 0; i < SOSPECHOSOS.length; i++) {
-    html += '<option value="' + SOSPECHOSOS[i].id + '">' + SOSPECHOSOS[i].n + "</option>";
+    html += '<button type="button" onclick="confirmarAdivinar(' + SOSPECHOSOS[i].id + ')">' + SOSPECHOSOS[i].n + '</button>';
   }
-  sel.innerHTML = html;
+  document.getElementById("lista-adiv").innerHTML = html;
   document.getElementById("popup").classList.add("visible");
 }
 
@@ -534,9 +550,8 @@ function cerrarPopup() {
   document.getElementById("popup").classList.remove("visible");
 }
 
-function confirmarAdivinar() {
+function confirmarAdivinar(id) {
   cerrarPopup();
-  var id = parseInt(document.getElementById("sel-adiv").value, 10);
   partidaActiva = false;
   if (id === objetivo.id) {
     document.getElementById("res-emoji").textContent = "🏆";
