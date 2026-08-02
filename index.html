@@ -370,7 +370,7 @@ function irA(id) {
 }
 
 function avatarHTML(s) {
-  var nombreArchivo = s.n.split(" ")[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "") + ".png";
+  var nombreArchivo = s.n.split(" ")[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "") + ".jpg";
   return '<img class="avatar" src="' + nombreArchivo + '" alt="' + s.n + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'"/>' +
          '<div class="iniciales" style="display:none">' + s.ini + '</div>';
 }
