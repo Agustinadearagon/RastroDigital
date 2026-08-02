@@ -125,23 +125,54 @@
     @media (max-width: 400px) {
       #sospechosos { grid-template-columns: repeat(4, 1fr); }
     }
+
+    /* ===== FICHAS CON VOLTEO ===== */
     .ficha {
-      background: var(--tarjeta);
+      perspective: 800px;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+    .ficha-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.45s;
+      transform-style: preserve-3d;
+    }
+    .ficha.flipped .ficha-inner {
+      transform: rotateY(180deg);
+    }
+    .ficha-front, .ficha-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
       border-radius: 8px;
       border: 2px solid var(--acento);
-      padding: 4px 2px;
-      text-align: center;
-      cursor: pointer;
-      aspect-ratio: 3/4;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 4px 2px;
+      text-align: center;
+    }
+    .ficha-front {
+      background: var(--tarjeta);
+    }
+    .ficha-back {
+      background: #1a3a5c;
+      color: #fff;
+      transform: rotateY(180deg);
+      font-size: clamp(9px, 2.3vw, 11px);
+      line-height: 1.35;
+      padding: 6px 4px;
     }
     .ficha.descartada {
       opacity: 0.35;
-      border-color: #666;
       filter: grayscale(0.8);
+    }
+    .ficha.descartada .ficha-front,
+    .ficha.descartada .ficha-back {
+      border-color: #666;
     }
     .ficha .avatar {
       width: 70%;
@@ -168,6 +199,14 @@
       font-weight: bold;
       margin-top: 3px;
       line-height: 1.1;
+    }
+    .ficha-back .dato {
+      margin-bottom: 4px;
+    }
+    .ficha-back .dato strong {
+      color: var(--acento);
+      display: block;
+      font-size: 0.9em;
     }
 
     .panel-invest {
@@ -285,7 +324,7 @@
       <li>Elige una <b>Categoría</b> y un <b>Detalle</b> (ej. Ubicación → Ciudad).</li>
       <li>Pulsa <b>Investigar</b>. Aparece una pista (a veces incompleta o ambigua).</li>
       <li>Tienes <b>7 investigaciones</b>. Cruza varias pistas; una sola no suele bastar.</li>
-      <li>Toca fichas para atenuarlas si crees que no son (solo ayuda visual).</li>
+      <li>Toca una ficha para ver Ciudad, Trabajo y Afición (se da la vuelta).</li>
       <li>Cuando lo sepas, pulsa <b>Adivinar</b> y elige un nombre. <b>Solo 1 intento</b>.</li>
     </ol>
   </div>
@@ -709,19 +748,28 @@ function dibujarSospechosos() {
   var html = "";
   for (var i = 0; i < SOSPECHOSOS.length; i++) {
     var s = SOSPECHOSOS[i];
-    var clase = descartados[s.id] ? "ficha descartada" : "ficha";
-    html += '<div class="' + clase + '" onclick="toggleDescartar(' + s.id + ')">';
-    html += avatarHTML(s);
-    html += '<div class="nombre">' + s.n + '</div>';
+    var clase = "ficha";
+    if (descartados[s.id]) clase += " descartada";
+    html += '<div class="' + clase + '" onclick="voltearFicha(this)">';
+    html +=   '<div class="ficha-inner">';
+    html +=     '<div class="ficha-front">';
+    html +=       avatarHTML(s);
+    html +=       '<div class="nombre">' + s.n + '</div>';
+    html +=     '</div>';
+    html +=     '<div class="ficha-back">';
+    html +=       '<div class="dato"><strong>Ciudad</strong>' + s.ciudad + '</div>';
+    html +=       '<div class="dato"><strong>Trabajo</strong>' + s.trabajo + '</div>';
+    html +=       '<div class="dato"><strong>Afición</strong>' + s.aficion + '</div>';
+    html +=     '</div>';
+    html +=   '</div>';
     html += '</div>';
   }
   document.getElementById("sospechosos").innerHTML = html;
 }
 
-function toggleDescartar(id) {
+function voltearFicha(el) {
   if (!partidaActiva) return;
-  descartados[id] = !descartados[id];
-  dibujarSospechosos();
+  el.classList.toggle("flipped");
 }
 
 function poblarCategorias() {
