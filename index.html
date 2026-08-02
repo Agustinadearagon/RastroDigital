@@ -337,16 +337,346 @@
 
 <script>
 var SOSPECHOSOS = [
-  { id:0, n:"Laura Vega",    ini:"LV", ciudad:"Zaragoza",  trabajo:"Fotógrafa freelance", aficion:"Senderismo / montaña", user:"@laurav_montana", correo:"laura.vega.zgz@email.com" },
-  { id:1, n:"Carlos Ruiz",   ini:"CR", ciudad:"Madrid",    trabajo:"Programador",         aficion:"Ciclismo",             user:"@cruiz_dev",       correo:"c.ruiz@mail.com" },
-  { id:2, n:"Marta Soto",    ini:"MS", ciudad:"Valencia",  trabajo:"Profesora",           aficion:"Fotografía",           user:"@marta.soto.photo",correo:"marta.soto.vlc@email.com" },
-  { id:3, n:"Diego Navarro", ini:"DN", ciudad:"Zaragoza",  trabajo:"Ingeniero",           aficion:"Escalada",             user:"@diego_nav",      correo:"diego.navarro@correo.com" },
-  { id:4, n:"Ana Beltrán",   ini:"AB", ciudad:"Barcelona", trabajo:"Periodista",          aficion:"Viajes",               user:"@ana_beltran_bcn",correo:"ana.beltran@prensa.com" },
-  { id:5, n:"Pablo Ortega",  ini:"PO", ciudad:"Madrid",    trabajo:"Diseñador",           aficion:"Música / conciertos",  user:"@portega_design", correo:"pablo.o@studio.com" },
-  { id:6, n:"Elena Gil",     ini:"EG", ciudad:"Sevilla",   trabajo:"Médica",              aficion:"Running",              user:"@elena_gil_sv",   correo:"elena.gil@salud.com" },
-  { id:7, n:"Javier Molina", ini:"JM", ciudad:"Valencia",  trabajo:"Abogado",             aficion:"Vela / mar",           user:"@jmolina_val",    correo:"j.molina@legal.com" },
-  { id:8, n:"Sofía Ramos",   ini:"SR", ciudad:"Barcelona", trabajo:"Investigadora",       aficion:"Ciencia / divulgación",user:"@sofiaramos_sci", correo:"s.ramos@lab.edu" },
-  { id:9, n:"Hugo Peña",     ini:"HP", ciudad:"Madrid",    trabajo:"Comunicador",         aficion:"Fútbol",               user:"@hugo_pena_mk",   correo:"hugo.pena@agencia.com" }
+  {
+    id: 0, n: "Laura Vega", ini: "LV",
+    ciudad: "Zaragoza", trabajo: "Fotógrafa freelance", aficion: "Senderismo / montaña",
+    user: "@laurav_montana", correo: "laura.vega.zgz@email.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Fotos de paisajes naturales y rutas. Estilo visual cuidado y luminoso.",
+        "X/Twitter": "Publica poco. Algún comentario sobre material de montaña y rutas.",
+        "LinkedIn": "Perfil profesional orientado a fotografía freelance.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: l*****@email.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @laur****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Zaragoza / Aragón.",
+        "Viajes": "Desplazamientos frecuentes hacia zonas de montaña."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con fotografía.",
+        "Aficiones": "Fuerte interés por el senderismo y la montaña.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "Portfolio visual orientado a naturaleza y paisajes.",
+        "Foto pública": "Imágenes públicas de estilo fotográfico profesional."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece mencionada junto a perfiles de fotografía y montaña."
+      }
+    }
+  },
+  {
+    id: 1, n: "Carlos Ruiz", ini: "CR",
+    ciudad: "Madrid", trabajo: "Programador", aficion: "Ciclismo",
+    user: "@cruiz_dev", correo: "c.ruiz@mail.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Pocas fotos personales. Alguna imagen de bicicletas y código.",
+        "X/Twitter": "Perfil técnico: programación, frameworks y algo de deporte.",
+        "LinkedIn": "Perfil profesional de desarrollador / programador.",
+        "GitHub": "Perfil activo con repositorios de código (Python/JS)."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: c*****@mail.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @crui****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Madrid.",
+        "Viajes": "Sin patrón claro de viajes recientes."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con programación.",
+        "Aficiones": "Interés claro por el ciclismo.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "Blog o web con contenido técnico.",
+        "Foto pública": "Pocas imágenes públicas identificables."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece mencionado en contextos de desarrollo y tecnología."
+      }
+    }
+  },
+  {
+    id: 2, n: "Marta Soto", ini: "MS",
+    ciudad: "Valencia", trabajo: "Profesora", aficion: "Fotografía",
+    user: "@marta.soto.photo", correo: "marta.soto.vlc@email.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Fotos de costa, luz natural y detalles cotidianos.",
+        "X/Twitter": "Actividad baja. Algún comentario sobre educación y fotos.",
+        "LinkedIn": "Perfil profesional relacionado con la enseñanza.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: m*****@email.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @mart****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Valencia.",
+        "Viajes": "Indicios de costa mediterránea."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con la enseñanza.",
+        "Aficiones": "Interés claro por la fotografía.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "No se encuentra web personal clara.",
+        "Foto pública": "Imágenes públicas de estilo fotográfico."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece cerca de perfiles de Valencia y fotografía."
+      }
+    }
+  },
+  {
+    id: 3, n: "Diego Navarro", ini: "DN",
+    ciudad: "Zaragoza", trabajo: "Ingeniero", aficion: "Escalada",
+    user: "@diego_nav", correo: "diego.navarro@correo.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Fotos de roca, material de escalada y vistas altas.",
+        "X/Twitter": "Algunos mensajes sobre montaña y escalada.",
+        "LinkedIn": "Perfil profesional de ingeniería.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: d*****@correo.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @dieg****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Zaragoza / Aragón.",
+        "Viajes": "Desplazamientos hacia zonas de montaña / Pirineo."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con ingeniería.",
+        "Aficiones": "Aficiones de exterior: escalada y montaña.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "No se encuentra web personal clara.",
+        "Foto pública": "Imágenes públicas relacionadas con deportes de montaña."
+      },
+      "Relaciones": {
+        "Menciones": "Menciones junto a perfiles de Aragón y montaña."
+      }
+    }
+  },
+  {
+    id: 4, n: "Ana Beltrán", ini: "AB",
+    ciudad: "Barcelona", trabajo: "Periodista", aficion: "Viajes",
+    user: "@ana_beltran_bcn", correo: "ana.beltran@prensa.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Contenido urbano, viajes y algo de actualidad.",
+        "X/Twitter": "Hilos de actualidad y medios.",
+        "LinkedIn": "Perfil profesional de periodismo / comunicación.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: a*****@prensa.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @ana_****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Barcelona.",
+        "Viajes": "Varios destinos, nacionales e internacionales."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con el periodismo.",
+        "Aficiones": "Interés claro por los viajes.",
+        "Noticias": "Apariciones en medios digitales firmando piezas."
+      },
+      "Archivos / web": {
+        "Web personal": "No se encuentra web personal clara.",
+        "Foto pública": "Imágenes públicas de estilo periodístico / viajes."
+      },
+      "Relaciones": {
+        "Menciones": "Menciones del entorno de prensa en Barcelona."
+      }
+    }
+  },
+  {
+    id: 5, n: "Pablo Ortega", ini: "PO",
+    ciudad: "Madrid", trabajo: "Diseñador", aficion: "Música / conciertos",
+    user: "@portega_design", correo: "pablo.o@studio.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Contenido visual creativo, diseño y algo de conciertos.",
+        "X/Twitter": "Actividad baja o genérica. Poco útil por sí sola.",
+        "LinkedIn": "Perfil profesional de diseño.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: p*****@studio.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @port****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Madrid.",
+        "Viajes": "Sin patrón claro de viajes recientes."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con el diseño.",
+        "Aficiones": "Interés por la música y los conciertos.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "Web de estilo creativo / estudio.",
+        "Foto pública": "Imágenes públicas de estilo creativo."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece mencionado en contextos de diseño y creatividad."
+      }
+    }
+  },
+  {
+    id: 6, n: "Elena Gil", ini: "EG",
+    ciudad: "Sevilla", trabajo: "Médica", aficion: "Running",
+    user: "@elena_gil_sv", correo: "elena.gil@salud.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Contenido de deporte, running y vida activa.",
+        "X/Twitter": "Actividad baja. Algún mensaje sobre salud y deporte.",
+        "LinkedIn": "Perfil profesional del ámbito sanitario.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: e*****@salud.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @elen****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Sevilla / Andalucía.",
+        "Viajes": "Sin patrón claro de viajes recientes."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con la medicina.",
+        "Aficiones": "Practica running de forma habitual.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "No se encuentra web personal clara.",
+        "Foto pública": "Imágenes públicas relacionadas con deporte."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece mencionada en contextos sanitarios y deportivos."
+      }
+    }
+  },
+  {
+    id: 7, n: "Javier Molina", ini: "JM",
+    ciudad: "Valencia", trabajo: "Abogado", aficion: "Vela / mar",
+    user: "@jmolina_val", correo: "j.molina@legal.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Fotos de costa, barcos y ambiente mediterráneo.",
+        "X/Twitter": "Actividad baja o genérica. Poco útil por sí sola.",
+        "LinkedIn": "Perfil profesional del ámbito legal.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: j*****@legal.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @jmol****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Valencia.",
+        "Viajes": "Indicios de costa mediterránea."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con el derecho.",
+        "Aficiones": "Interés por la vela y el mar.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "No se encuentra web personal clara.",
+        "Foto pública": "Imágenes públicas relacionadas con el mar."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece cerca de perfiles de Valencia y náutica."
+      }
+    }
+  },
+  {
+    id: 8, n: "Sofía Ramos", ini: "SR",
+    ciudad: "Barcelona", trabajo: "Investigadora", aficion: "Ciencia / divulgación",
+    user: "@sofiaramos_sci", correo: "s.ramos@lab.edu",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Contenido de ciencia, laboratorios y divulgación.",
+        "X/Twitter": "Contenido de ciencia y divulgación.",
+        "LinkedIn": "Perfil profesional de investigación.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: s*****@lab.edu",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @sofi****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Barcelona.",
+        "Viajes": "Sin patrón claro de viajes recientes."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con la investigación.",
+        "Aficiones": "Interés por la ciencia y la divulgación.",
+        "Noticias": "Menciones en eventos de divulgación científica."
+      },
+      "Archivos / web": {
+        "Web personal": "Página con proyectos de investigación.",
+        "Foto pública": "Imágenes públicas de entorno científico."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece mencionada en contextos académicos y científicos."
+      }
+    }
+  },
+  {
+    id: 9, n: "Hugo Peña", ini: "HP",
+    ciudad: "Madrid", trabajo: "Comunicador", aficion: "Fútbol",
+    user: "@hugo_pena_mk", correo: "hugo.pena@agencia.com",
+    pistas: {
+      "Redes sociales": {
+        "Instagram": "Contenido de comunicación, eventos y algo de fútbol.",
+        "X/Twitter": "Actividad moderada relacionada con comunicación.",
+        "LinkedIn": "Perfil profesional de comunicación / marketing.",
+        "GitHub": "Sin actividad relevante."
+      },
+      "Identidad": {
+        "Correo": "Correo parcialmente visible: h*****@agencia.com",
+        "Teléfono": "No hay un teléfono público claro.",
+        "Usuario": "Usuario parcial detectado: @hugo****"
+      },
+      "Ubicación": {
+        "Ciudad": "Indicios geográficos apuntan a Madrid.",
+        "Viajes": "Sin patrón claro de viajes recientes."
+      },
+      "Actividad": {
+        "Trabajo": "Actividad profesional relacionada con la comunicación.",
+        "Aficiones": "Interés claro por el fútbol.",
+        "Noticias": "Sin noticias relevantes."
+      },
+      "Archivos / web": {
+        "Web personal": "No se encuentra web personal clara.",
+        "Foto pública": "Imágenes públicas de estilo comunicativo."
+      },
+      "Relaciones": {
+        "Menciones": "Aparece mencionado en contextos de agencias y comunicación."
+      }
+    }
+  }
 ];
 
 var CATEGORIAS = {
@@ -429,93 +759,9 @@ function nuevaPartida() {
 }
 
 function obtenerPista(cat, det) {
-  var o = objetivo;
-
-  if (cat === "Redes sociales") {
-    if (det === "Instagram") {
-      if (o.n === "Carlos Ruiz") return "No se encuentra una cuenta de Instagram clara.";
-      if (o.ciudad === "Zaragoza") return "Fotos de montaña y aire libre. Ubicación frecuente: Aragón.";
-      if (o.ciudad === "Valencia") return "Fotos de costa y vida mediterránea.";
-      if (o.ciudad === "Barcelona") return "Contenido urbano y profesional en Cataluña.";
-      if (o.ciudad === "Madrid") return "Publicaciones habituales desde Madrid.";
-      if (o.ciudad === "Sevilla") return "Contenido de deporte y vida en Andalucía.";
-      return "Cuenta con actividad moderada. Poco concluyente.";
-    }
-    if (det === "X/Twitter") {
-      if (o.n === "Carlos Ruiz") return "Perfil técnico: programación y algo de deporte.";
-      if (o.aficion.indexOf("montaña") >= 0 || o.aficion.indexOf("Escalada") >= 0)
-        return "Algunos mensajes sobre montaña / aire libre.";
-      if (o.trabajo === "Periodista") return "Hilos de actualidad y medios.";
-      if (o.trabajo === "Investigadora") return "Contenido de ciencia y divulgación.";
-      return "Actividad baja o genérica. Poco útil por sí sola.";
-    }
-    if (det === "LinkedIn") {
-      return "Perfil profesional: " + o.trabajo + ". Zona aproximada: " + o.ciudad + ".";
-    }
-    if (det === "GitHub") {
-      if (o.n === "Carlos Ruiz") return "Perfil con repositorios de código (Python/JS).";
-      return "Sin actividad relevante en GitHub.";
-    }
+  if (objetivo.pistas && objetivo.pistas[cat] && objetivo.pistas[cat][det]) {
+    return objetivo.pistas[cat][det];
   }
-
-  if (cat === "Identidad") {
-    if (det === "Correo") {
-      var dominio = o.correo.split("@")[1];
-      var inicial = o.correo.charAt(0);
-      return "Correo parcialmente visible: " + inicial + ".*****@" + dominio;
-    }
-    if (det === "Teléfono") return "No hay un teléfono público claro.";
-    if (det === "Usuario") {
-      var u = o.user.replace("@", "");
-      return "Usuario parcial detectado: @" + u.substring(0, 4) + "****";
-    }
-  }
-
-  if (cat === "Ubicación") {
-    if (det === "Ciudad") return "Indicios geográficos apuntan a: " + o.ciudad + ".";
-    if (det === "Viajes") {
-      if (o.n === "Laura Vega" || o.n === "Diego Navarro") return "Desplazamientos hacia zonas de montaña / Pirineo.";
-      if (o.n === "Marta Soto" || o.n === "Javier Molina") return "Indicios de costa mediterránea.";
-      if (o.n === "Ana Beltrán") return "Varios destinos, nacionales e internacionales.";
-      return "Sin patrón claro de viajes recientes.";
-    }
-  }
-
-  if (cat === "Actividad") {
-    if (det === "Trabajo") return "Actividad profesional relacionada con: " + o.trabajo + ".";
-    if (det === "Aficiones") {
-      if (o.aficion.indexOf("montaña") >= 0 || o.aficion.indexOf("Escalada") >= 0)
-        return "Aficiones de exterior: montaña, rutas o escalada.";
-      if (o.aficion.indexOf("Foto") >= 0) return "Interés claro por la fotografía.";
-      return "Aficiones detectadas: " + o.aficion + ".";
-    }
-    if (det === "Noticias") {
-      if (o.n === "Ana Beltrán") return "Apariciones en medios digitales firmando piezas.";
-      if (o.n === "Sofía Ramos") return "Menciones en eventos de divulgación científica.";
-      return "Sin noticias relevantes.";
-    }
-  }
-
-  if (cat === "Archivos / web") {
-    if (det === "Web personal") {
-      if (o.n === "Laura Vega") return "Portfolio visual orientado a naturaleza.";
-      if (o.n === "Carlos Ruiz") return "Blog o web con contenido técnico.";
-      if (o.n === "Pablo Ortega") return "Web de estilo creativo / estudio.";
-      if (o.n === "Sofía Ramos") return "Página con proyectos de investigación.";
-      return "No se encuentra web personal clara.";
-    }
-    if (det === "Foto pública") return "Hay imágenes públicas asociadas, pero no identifican por sí solas.";
-  }
-
-  if (cat === "Relaciones") {
-    if (det === "Menciones") {
-      if (o.n === "Laura Vega" || o.n === "Diego Navarro") return "Menciones junto a perfiles de Aragón / montaña.";
-      if (o.n === "Marta Soto" || o.n === "Javier Molina") return "Aparece cerca de perfiles de Valencia.";
-      if (o.n === "Ana Beltrán") return "Menciones del entorno de prensa en Barcelona.";
-      return "Menciones genéricas o poco concluyentes.";
-    }
-  }
-
   return "Sin resultados útiles.";
 }
 
