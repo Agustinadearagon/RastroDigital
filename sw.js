@@ -1,4 +1,4 @@
-var CACHE = "rastro-digital-v1";
+var CACHE = "rastro-digital-v2";
 
 self.addEventListener("install", function (e) {
   self.skipWaiting();
