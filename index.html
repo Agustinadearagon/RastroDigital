@@ -130,6 +130,7 @@
       perspective: 800px;
       aspect-ratio: 3/4;
       cursor: pointer;
+      position: relative;
     }
     .ficha-inner {
       position: relative;
@@ -206,6 +207,29 @@
       color: var(--acento);
       display: block;
       font-size: 0.9em;
+    }
+
+    /* Botón descartar */
+    .btn-descartar {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      z-index: 5;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 22px;
+      text-align: center;
+      padding: 0;
+      cursor: pointer;
+    }
+    .ficha.descartada .btn-descartar {
+      background: var(--rojo);
     }
 
     .panel-invest {
@@ -323,7 +347,8 @@
       <li>Elige una <b>Categoría</b> y un <b>Detalle</b>.</li>
       <li>Pulsa <b>Investigar</b>. Las pistas son ambiguas y se solapan.</li>
       <li>Tienes <b>7 investigaciones</b>.</li>
-      <li>Puedes voltear máximo <b>3 fichas</b> (se ve Username, Ciudad y Afición).</li>
+      <li>Puedes voltear máximo <b>3 fichas</b> (Username, Ciudad y Afición).</li>
+      <li>Usa el botón <b>✕</b> de cada ficha para descartarla.</li>
       <li>Cuando lo sepas, pulsa <b>Adivinar</b>. <b>Solo 1 intento</b>.</li>
     </ol>
   </div>
@@ -374,13 +399,6 @@
 </div>
 
 <script>
-/* ===== DATOS =====
-   Ciudades: Madrid×4, Zaragoza×3, Barcelona×3
-   Usernames: 5 con A, 5 con B
-   Aficiones: 2 grupos de 5
-   Trabajos: 2 grupos
-   Solo Instagram da la afición
-*/
 var SOSPECHOSOS = [
   {
     id: 0, n: "Laura Vega", ini: "LV",
@@ -757,8 +775,9 @@ function dibujarSospechosos() {
     var s = SOSPECHOSOS[i];
     var clase = "ficha";
     if (descartados[s.id]) clase += " descartada";
-    html += '<div class="' + clase + '" onclick="voltearFicha(this)">';
-    html +=   '<div class="ficha-inner">';
+    html += '<div class="' + clase + '" data-id="' + s.id + '">';
+    html +=   '<button class="btn-descartar" onclick="event.stopPropagation(); toggleDescartar(' + s.id + ')">✕</button>';
+    html +=   '<div class="ficha-inner" onclick="voltearFicha(this.parentNode)">';
     html +=     '<div class="ficha-front">';
     html +=       avatarHTML(s);
     html +=       '<div class="nombre">' + s.n + '</div>';
@@ -779,8 +798,21 @@ function actualizarContadores() {
     "Investigaciones: " + accionesRestantes + " · Volteos: " + volteosRestantes;
 }
 
+function toggleDescartar(id) {
+  if (!partidaActiva) return;
+  if (descartados[id]) {
+    delete descartados[id];
+  } else {
+    descartados[id] = true;
+  }
+  dibujarSospechosos();
+}
+
 function voltearFicha(el) {
   if (!partidaActiva) return;
+  var id = parseInt(el.getAttribute("data-id"), 10);
+  if (descartados[id]) return;
+
   if (el.classList.contains("flipped")) {
     el.classList.remove("flipped");
     return;
