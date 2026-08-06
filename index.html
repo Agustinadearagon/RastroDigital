@@ -161,9 +161,9 @@
       background: #1a3a5c;
       color: #fff;
       transform: rotateY(180deg);
-      font-size: clamp(10px, 2.5vw, 13px);
-      line-height: 1.4;
-      padding: 8px 4px;
+      font-size: clamp(9px, 2.2vw, 11px);
+      line-height: 1.35;
+      padding: 6px 4px;
     }
     .ficha.descartada {
       opacity: 0.35;
@@ -200,13 +200,12 @@
       line-height: 1.1;
     }
     .ficha-back .dato {
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .ficha-back .dato strong {
       color: var(--acento);
       display: block;
       font-size: 0.9em;
-      margin-bottom: 2px;
     }
 
     .panel-invest {
@@ -321,11 +320,11 @@
     <h2>Cómo jugar (paso a paso)</h2>
     <ol>
       <li>El juego elige en secreto a 1 de los 10 sospechosos.</li>
-      <li>Elige una <b>Categoría</b> y un <b>Detalle</b> (ej. Ubicación → Ciudad).</li>
-      <li>Pulsa <b>Investigar</b>. Aparece una pista (a veces incompleta o ambigua).</li>
-      <li>Tienes <b>7 investigaciones</b>. Cruza varias pistas; una sola no suele bastar.</li>
-      <li>Toca una ficha para ver solo la <b>Ciudad</b> (se da la vuelta).</li>
-      <li>Cuando lo sepas, pulsa <b>Adivinar</b> y elige un nombre. <b>Solo 1 intento</b>.</li>
+      <li>Elige una <b>Categoría</b> y un <b>Detalle</b>.</li>
+      <li>Pulsa <b>Investigar</b>. Las pistas son ambiguas y se solapan.</li>
+      <li>Tienes <b>7 investigaciones</b>.</li>
+      <li>Puedes voltear máximo <b>3 fichas</b> (se ve Username, Ciudad y Afición).</li>
+      <li>Cuando lo sepas, pulsa <b>Adivinar</b>. <b>Solo 1 intento</b>.</li>
     </ol>
   </div>
   <button class="btn btn-acento" onclick="nuevaPartida()">▶ INVESTIGAR</button>
@@ -335,7 +334,7 @@
   <div class="juego-header">
     <div class="juego-top">
       <button onclick="irA('menu')" title="Menú">🏠</button>
-      <div id="lbl-acciones">Investigaciones: 7</div>
+      <div id="lbl-acciones">Investigaciones: 7 · Volteos: 3</div>
     </div>
     <div id="lbl-estado">Elige una fuente y investiga</div>
   </div>
@@ -375,17 +374,24 @@
 </div>
 
 <script>
+/* ===== DATOS =====
+   Ciudades: Madrid×4, Zaragoza×3, Barcelona×3
+   Usernames: 5 con A, 5 con B
+   Aficiones: 2 grupos de 5
+   Trabajos: 2 grupos
+   Solo Instagram da la afición
+*/
 var SOSPECHOSOS = [
   {
     id: 0, n: "Laura Vega", ini: "LV",
-    ciudad: "Zaragoza", trabajo: "Fotógrafa freelance", aficion: "Senderismo / montaña",
-    user: "@ax_norte", correo: "ax.norte@mail.com",
+    ciudad: "Zaragoza", trabajo: "Creativo / visual", aficion: "Aire libre / montaña",
+    user: "@ax_norte",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con actividades al aire libre y montaña.",
-        "X/Twitter": "Actividad baja. Comentarios genéricos.",
-        "LinkedIn": "Perfil profesional poco detallado.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: a*****@*****.com",
@@ -397,8 +403,8 @@ var SOSPECHOSOS = [
         "Viajes": "Desplazamientos hacia zonas de montaña o naturaleza."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con imagen o creación visual.",
-        "Aficiones": "Interés por actividades al aire libre y entornos naturales.",
+        "Trabajo": "Actividad profesional del ámbito creativo o visual.",
+        "Aficiones": "Interés por actividades al aire libre.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
@@ -412,14 +418,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 1, n: "Carlos Ruiz", ini: "CR",
-    ciudad: "Madrid", trabajo: "Programador", aficion: "Ciclismo",
-    user: "@bx_code", correo: "bx.code@mail.com",
+    ciudad: "Madrid", trabajo: "Técnico / STEM", aficion: "Aire libre / montaña",
+    user: "@bx_code",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con actividades al aire libre y deporte.",
-        "X/Twitter": "Perfil técnico con menciones a herramientas.",
-        "LinkedIn": "Perfil profesional del sector tecnológico.",
-        "GitHub": "Hay actividad en repositorios de código."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: b*****@*****.com",
@@ -431,8 +437,8 @@ var SOSPECHOSOS = [
         "Viajes": "Sin patrón claro de viajes recientes."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con tecnología o desarrollo.",
-        "Aficiones": "Interés por deporte al aire libre / movilidad activa.",
+        "Trabajo": "Actividad profesional del ámbito técnico o STEM.",
+        "Aficiones": "Interés por deporte al aire libre.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
@@ -446,14 +452,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 2, n: "Marta Soto", ini: "MS",
-    ciudad: "Barcelona", trabajo: "Profesora", aficion: "Fotografía",
-    user: "@ay_luz", correo: "ay.luz@mail.com",
+    ciudad: "Barcelona", trabajo: "Creativo / visual", aficion: "Cultura / eventos",
+    user: "@ay_luz",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con cultura, imagen y eventos.",
-        "X/Twitter": "Actividad baja. Comentarios genéricos.",
-        "LinkedIn": "Perfil profesional relacionado con la enseñanza.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: a*****@*****.com",
@@ -465,8 +471,8 @@ var SOSPECHOSOS = [
         "Viajes": "Indicios de entorno urbano y costa."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con la educación o formación.",
-        "Aficiones": "Interés por la imagen, la cultura y eventos.",
+        "Trabajo": "Actividad profesional del ámbito creativo o visual.",
+        "Aficiones": "Interés por la cultura y los eventos.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
@@ -480,14 +486,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 3, n: "Diego Navarro", ini: "DN",
-    ciudad: "Zaragoza", trabajo: "Ingeniero", aficion: "Escalada",
-    user: "@by_roca", correo: "by.roca@mail.com",
+    ciudad: "Zaragoza", trabajo: "Técnico / STEM", aficion: "Aire libre / montaña",
+    user: "@by_roca",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con actividades al aire libre y montaña.",
-        "X/Twitter": "Algunos mensajes sobre montaña y exterior.",
-        "LinkedIn": "Perfil profesional de ámbito técnico / ingeniería.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: b*****@*****.com",
@@ -499,8 +505,8 @@ var SOSPECHOSOS = [
         "Viajes": "Desplazamientos hacia zonas de montaña."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con ingeniería o técnica.",
-        "Aficiones": "Aficiones de exterior y deportes de montaña.",
+        "Trabajo": "Actividad profesional del ámbito técnico o STEM.",
+        "Aficiones": "Aficiones de exterior y montaña.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
@@ -514,14 +520,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 4, n: "Ana Beltrán", ini: "AB",
-    ciudad: "Barcelona", trabajo: "Periodista", aficion: "Viajes",
-    user: "@az_prensa", correo: "az.prensa@mail.com",
+    ciudad: "Barcelona", trabajo: "Creativo / visual", aficion: "Cultura / eventos",
+    user: "@az_prensa",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con cultura, viajes y actualidad.",
-        "X/Twitter": "Hilos de actualidad y medios.",
-        "LinkedIn": "Perfil profesional de comunicación o periodismo.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: a*****@*****.com",
@@ -533,13 +539,13 @@ var SOSPECHOSOS = [
         "Viajes": "Varios destinos, nacionales e internacionales."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con medios o comunicación.",
-        "Aficiones": "Interés por los viajes, la cultura y eventos.",
-        "Noticias": "Apariciones ocasionales en medios digitales."
+        "Trabajo": "Actividad profesional del ámbito creativo o de comunicación.",
+        "Aficiones": "Interés por la cultura y los eventos.",
+        "Noticias": "Apariciones ocasionales en medios."
       },
       "Archivos / web": {
         "Web personal": "No se encuentra web personal clara.",
-        "Foto pública": "Imágenes públicas de estilo periodístico / viajes."
+        "Foto pública": "Imágenes públicas de estilo periodístico."
       },
       "Relaciones": {
         "Menciones": "Menciones del entorno de prensa."
@@ -548,14 +554,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 5, n: "Pablo Ortega", ini: "PO",
-    ciudad: "Madrid", trabajo: "Diseñador", aficion: "Música / conciertos",
-    user: "@bz_studio", correo: "bz.studio@mail.com",
+    ciudad: "Madrid", trabajo: "Creativo / visual", aficion: "Cultura / eventos",
+    user: "@bz_studio",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con cultura, diseño y eventos.",
-        "X/Twitter": "Actividad baja o genérica.",
-        "LinkedIn": "Perfil profesional del ámbito creativo / diseño.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: b*****@*****.com",
@@ -567,12 +573,12 @@ var SOSPECHOSOS = [
         "Viajes": "Sin patrón claro de viajes recientes."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con el diseño o la creatividad.",
-        "Aficiones": "Interés por la música, eventos y cultura.",
+        "Trabajo": "Actividad profesional del ámbito creativo o visual.",
+        "Aficiones": "Interés por la cultura y los eventos.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
-        "Web personal": "Se detecta web de estilo creativo o estudio.",
+        "Web personal": "Se detecta web de estilo creativo.",
         "Foto pública": "Imágenes públicas de estilo creativo."
       },
       "Relaciones": {
@@ -582,14 +588,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 6, n: "Elena Gil", ini: "EG",
-    ciudad: "Madrid", trabajo: "Médica", aficion: "Running",
-    user: "@aw_salud", correo: "aw.salud@mail.com",
+    ciudad: "Madrid", trabajo: "Técnico / STEM", aficion: "Aire libre / montaña",
+    user: "@aw_salud",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con deporte y vida activa.",
-        "X/Twitter": "Actividad baja. Algún mensaje sobre salud.",
-        "LinkedIn": "Perfil profesional del ámbito sanitario.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: a*****@*****.com",
@@ -601,8 +607,8 @@ var SOSPECHOSOS = [
         "Viajes": "Sin patrón claro de viajes recientes."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con la salud o la medicina.",
-        "Aficiones": "Practica deporte de forma habitual (aire libre).",
+        "Trabajo": "Actividad profesional del ámbito técnico o sanitario.",
+        "Aficiones": "Practica deporte de forma habitual al aire libre.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
@@ -616,14 +622,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 7, n: "Javier Molina", ini: "JM",
-    ciudad: "Barcelona", trabajo: "Abogado", aficion: "Vela / mar",
-    user: "@bw_legal", correo: "bw.legal@mail.com",
+    ciudad: "Barcelona", trabajo: "Creativo / visual", aficion: "Cultura / eventos",
+    user: "@bw_legal",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con cultura, costa y eventos.",
-        "X/Twitter": "Actividad baja o genérica.",
-        "LinkedIn": "Perfil profesional del ámbito legal o jurídico.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: b*****@*****.com",
@@ -635,8 +641,8 @@ var SOSPECHOSOS = [
         "Viajes": "Indicios de entorno costero."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con el derecho o lo jurídico.",
-        "Aficiones": "Interés por el mar, la cultura y eventos.",
+        "Trabajo": "Actividad profesional del ámbito creativo o de servicios.",
+        "Aficiones": "Interés por la cultura y los eventos.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
@@ -644,20 +650,20 @@ var SOSPECHOSOS = [
         "Foto pública": "Imágenes públicas relacionadas con el mar."
       },
       "Relaciones": {
-        "Menciones": "Aparece cerca de perfiles de Valencia/Barcelona y náutica."
+        "Menciones": "Aparece cerca de perfiles de costa y náutica."
       }
     }
   },
   {
     id: 8, n: "Sofía Ramos", ini: "SR",
-    ciudad: "Zaragoza", trabajo: "Investigadora", aficion: "Ciencia / divulgación",
-    user: "@ax_lab", correo: "ax.lab@mail.com",
+    ciudad: "Zaragoza", trabajo: "Técnico / STEM", aficion: "Aire libre / montaña",
+    user: "@ax_lab",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con actividades al aire libre y divulgación.",
-        "X/Twitter": "Contenido de ciencia y divulgación.",
-        "LinkedIn": "Perfil profesional de investigación o ámbito académico.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: a*****@*****.com",
@@ -669,12 +675,12 @@ var SOSPECHOSOS = [
         "Viajes": "Sin patrón claro de viajes recientes."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con la investigación o la ciencia.",
-        "Aficiones": "Interés por la ciencia y actividades al aire libre.",
+        "Trabajo": "Actividad profesional del ámbito técnico o científico.",
+        "Aficiones": "Interés por la ciencia y el aire libre.",
         "Noticias": "Menciones ocasionales en eventos de divulgación."
       },
       "Archivos / web": {
-        "Web personal": "Se detecta página con proyectos o contenido científico.",
+        "Web personal": "Se detecta página con proyectos científicos.",
         "Foto pública": "Imágenes públicas de entorno científico."
       },
       "Relaciones": {
@@ -684,14 +690,14 @@ var SOSPECHOSOS = [
   },
   {
     id: 9, n: "Hugo Peña", ini: "HP",
-    ciudad: "Madrid", trabajo: "Comunicador", aficion: "Fútbol",
-    user: "@bx_agencia", correo: "bx.agencia@mail.com",
+    ciudad: "Madrid", trabajo: "Creativo / visual", aficion: "Cultura / eventos",
+    user: "@bx_agencia",
     pistas: {
       "Redes sociales": {
         "Instagram": "Publicaciones relacionadas con cultura, eventos y deporte.",
-        "X/Twitter": "Actividad moderada relacionada con comunicación.",
-        "LinkedIn": "Perfil profesional de comunicación o marketing.",
-        "GitHub": "Sin actividad relevante."
+        "X/Twitter": "Sin resultados útiles.",
+        "LinkedIn": "Sin resultados útiles.",
+        "GitHub": "Sin resultados útiles."
       },
       "Identidad": {
         "Correo": "Correo parcialmente visible: b*****@*****.com",
@@ -703,8 +709,8 @@ var SOSPECHOSOS = [
         "Viajes": "Sin patrón claro de viajes recientes."
       },
       "Actividad": {
-        "Trabajo": "Actividad profesional relacionada con la comunicación.",
-        "Aficiones": "Interés por el deporte, eventos y cultura.",
+        "Trabajo": "Actividad profesional del ámbito creativo o de comunicación.",
+        "Aficiones": "Interés por la cultura y los eventos.",
         "Noticias": "Sin noticias relevantes."
       },
       "Archivos / web": {
@@ -729,6 +735,7 @@ var CATEGORIAS = {
 
 var objetivo = null;
 var accionesRestantes = 7;
+var volteosRestantes = 3;
 var partidaActiva = false;
 var descartados = {};
 
@@ -757,7 +764,9 @@ function dibujarSospechosos() {
     html +=       '<div class="nombre">' + s.n + '</div>';
     html +=     '</div>';
     html +=     '<div class="ficha-back">';
+    html +=       '<div class="dato"><strong>User</strong>' + s.user + '</div>';
     html +=       '<div class="dato"><strong>Ciudad</strong>' + s.ciudad + '</div>';
+    html +=       '<div class="dato"><strong>Afición</strong>' + s.aficion + '</div>';
     html +=     '</div>';
     html +=   '</div>';
     html += '</div>';
@@ -765,9 +774,24 @@ function dibujarSospechosos() {
   document.getElementById("sospechosos").innerHTML = html;
 }
 
+function actualizarContadores() {
+  document.getElementById("lbl-acciones").textContent =
+    "Investigaciones: " + accionesRestantes + " · Volteos: " + volteosRestantes;
+}
+
 function voltearFicha(el) {
   if (!partidaActiva) return;
-  el.classList.toggle("flipped");
+  if (el.classList.contains("flipped")) {
+    el.classList.remove("flipped");
+    return;
+  }
+  if (volteosRestantes <= 0) {
+    document.getElementById("lbl-estado").textContent = "Sin volteos restantes";
+    return;
+  }
+  el.classList.add("flipped");
+  volteosRestantes--;
+  actualizarContadores();
 }
 
 function poblarCategorias() {
@@ -794,11 +818,12 @@ function actualizarDetalle() {
 function nuevaPartida() {
   objetivo = SOSPECHOSOS[Math.floor(Math.random() * SOSPECHOSOS.length)];
   accionesRestantes = 7;
+  volteosRestantes = 3;
   partidaActiva = true;
   descartados = {};
   document.getElementById("log").innerHTML = "";
-  document.getElementById("lbl-acciones").textContent = "Investigaciones: 7";
   document.getElementById("lbl-estado").textContent = "Elige una fuente y investiga";
+  actualizarContadores();
   poblarCategorias();
   dibujarSospechosos();
   irA("juego");
@@ -821,7 +846,7 @@ function investigar() {
   var det = document.getElementById("sel-det").value;
   var pista = obtenerPista(cat, det);
   accionesRestantes--;
-  document.getElementById("lbl-acciones").textContent = "Investigaciones: " + accionesRestantes;
+  actualizarContadores();
   document.getElementById("lbl-estado").textContent = accionesRestantes > 0 ? "Pista añadida al registro" : "Sin investigaciones. Adivina.";
 
   var log = document.getElementById("log");
